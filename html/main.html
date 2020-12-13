@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Album Art Finder</title>
+		<script type="">
+			function buttonclick(){
+			
+			}
+			</script>
+		<style>
+			body, form{
+				margin: 0 auto;
+				max-width:800px;
+				overflow-x:hidden;
+			}
+			fieldset{
+				display: flex;
+			}
+			input#artist{
+				flex-grow:100;
+				margin: 0 20px;
+			}
+		</style>
+	</head>
+	<body>
+			
+			<img src="../images/banner.jpg" alt="Anime Scene Search" />
+			<fieldset>
+				<label for="scene">Anime Scene:</label>
+				<form action="/temp_images" method="POST" enctype="multipart/form-data" >
+									  
+				  <input type="file" id="myFile" name="image"/>
+				  <input type="submit"/>
+				 
+
+			</fieldset>
+			
+			<div id = 'Anime Info'>
+			</div>
+			<div >
+			<img id = 'anime pic'/>
+			</div>
+			<script>
+				const urlParams = new URLSearchParams(window.location.search);
+				const title = urlParams.get('title');
+				const status = urlParams.get('list_status');
+				const me_image = urlParams.get('anime_image');
+				if(title && status && me_image){
+					document.getElementById('Anime Info').textContent = `${title} ${status}`;
+					document.getElementById('anime pic').src = me_image;
+					document.getElementById('anime pic').alt = title;
+
+				}
+				else if(title){
+					document.getElementById('Anime Info').textContent = title;
+				}
+			</script>
+	</body>
+</html>
