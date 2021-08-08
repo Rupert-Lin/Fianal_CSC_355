@@ -101,9 +101,9 @@ function connection_handler(req, res){
 			const length = req.headers['content-length'];
 			const options = {
 			"method": "POST",
-			"hostname": "trace.moe",
+			"hostname": "api.trace.moe",
 			"port": null,
-			"path": "/api/search",
+			"path": "/search?anilistInfo",
 			"headers": {
 			"content-length": length,
 			"content-type": header
@@ -126,8 +126,8 @@ function connection_handler(req, res){
 				anime_res.on("end", function () {
 					const body = Buffer.concat(chunks);
 					const body_2 = JSON.parse(body);
-					
-					anime_id.push(body_2.docs[0].mal_id);
+					console.log(body_2.result[0].anilist.idMal);
+					anime_id.push(body_2.result[0].anilist.idMal);
 					res.writeHead(302, {Location: `http://localhost:3000/authorize`})
 					.end();
 
@@ -232,6 +232,8 @@ function receive_response(body, res,access_token,cookie,is_cache){
 	else{
 		list_status = 'Not Watched';
 	}
+	console.log(body);
+	console.log(results);
 	const anime_image = results.main_picture.medium;
 	const q_data = querystring.stringify({title,list_status,anime_image});
 	
